@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+		<meta name="viewport" content="width=device-width, initial-scale=1"> 
+		<title>Page Loading Effects | Demo 7</title>
+		<meta name="description" content="Page Loading Effects: Modern ways of revealing new content" />
+		<meta name="keywords" content="page loading, svg animation, loading effect, fullscreen svg" />
+		<meta name="author" content="Codrops" />
+		<link rel="shortcut icon" href="../favicon.ico">
+		<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+		<link rel="stylesheet" type="text/css" href="css/demo.css" />
+		<link rel="stylesheet" type="text/css" href="css/component.css" />
+		<script src="js/snap.svg-min.js"></script>
+		<!--[if IE]>
+  		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+	</head>
+	<body>
+		<div id="pagewrap" class="pagewrap">
+			<div class="container show" id="page-1">
+				<!-- Top Navigation -->
+				<div class="codrops-top clearfix">
+					<a class="codrops-icon codrops-icon-prev" href="http://tympanus.net/Tutorials/CircularProgressButton/"><span>Previous Demo</span></a>
+					<span class="right"><a class="codrops-icon codrops-icon-drop" href="http://tympanus.net/codrops/?p=18880"><span>Back to the Codrops Article</span></a></span>
+				</div>
+				<header class="codrops-header">
+					<h1>Page Loading Effects <span>Modern ways of revealing new content</span></h1>
+				</header>
+				<section class="columns clearfix">
+					<div class="column">
+						<nav class="codrops-demos">
+							<a href="index.html">Lazy Stretch</a>
+							<a href="index2.html">Circle</a>
+							<a href="index3.html">Spill</a>
+							<a href="index4.html">Frame it</a>
+							<a href="index5.html">Tunnel vision</a>
+							<a href="index6.html">Windscreen wiper</a>
+							<a class="current-demo" href="index7.html">Jammed blind</a>
+							<a href="index8.html">Parallelogram</a>
+							<a href="index9.html">Tilted</a>
+							<a href="index10.html">Lateral Swipe</a>
+							<a href="index11.html">Wave</a>
+							<a href="index12.html">Origami</a>
+							<a href="index13.html">Curtain</a>
+						</nav>
+					</div>
+					<div class="column">
+						<p>To start the page loading animation, click the following link:</p>
+						<p><a class="pageload-link" href="#page-2">Show Page Loader</a></p>
+					</div>
+				</section>
+				<section class="related">
+					<p>If you enjoyed this demo you might also like:</p>
+					<a href="http://tympanus.net/Development/FullscreenOverlayStyles/">
+						<img src="http://tympanus.net/codrops/wp-content/uploads/2014/02/FullscreenOverlayStyles-300x162.jpg" />
+						<h3>Fullscreen Overlay Effects</h3>
+					</a>
+					<a href="http://tympanus.net/Tutorials/ShapeHoverEffectSVG/">
+						<img src="http://tympanus.net/codrops/wp-content/uploads/2014/01/ShapeHoverEffect-300x162.png" />
+						<h3>Shape Hover Effect</h3>
+					</a>
+				</section>
+			</div><!-- /container -->
+
+			<!-- The new page dummy; this would be dynamically loaded content -->
+			<div class="container" id="page-2">
+				<!-- Top Navigation -->
+				<div class="codrops-top clearfix">
+					<a class="codrops-icon codrops-icon-prev" href="http://tympanus.net/Tutorials/CircularProgressButton/"><span>Previous Demo</span></a>
+					<span class="right"><a class="codrops-icon codrops-icon-drop" href="http://tympanus.net/codrops/?p=18880"><span>Back to the Codrops Article</span></a></span>
+				</div>
+				<section>
+					<h2>This is an example for a new page.</h2>
+					<p><a class="pageload-link" href="#page-1">Go back</a></p>
+				</section>
+			</div><!-- /container -->
+
+			<div id="loader" class="pageload-overlay" data-opening="M 0,60 80,60 80,50 0,40 0,60;M 0,60 80,60 80,25 0,40 0,60;M 0,60 80,60 80,25 0,10 0,60;M 0,60 80,60 80,0 0,0 0,60" data-closing="M 0,60 80,60 80,20 0,0 0,60;M 0,60 80,60 80,20 0,40 0,60;m 0,60 80,0 0,0 -80,0">
+				<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 80 60" preserveAspectRatio="none">
+					<path d="m 0,60 80,0 0,0 -80,0"/>
+				</svg>
+			</div><!-- /pageload-overlay -->
+			
+		</div><!-- /pagewrap -->
+		<script src="js/classie.js"></script>
+		<script src="js/svgLoader.js"></script>
+		<script>
+			(function() {
+				var pageWrap = document.getElementById( 'pagewrap' ),
+					pages = [].slice.call( pageWrap.querySelectorAll( 'div.container' ) ),
+					currentPage = 0,
+					triggerLoading = [].slice.call( pageWrap.querySelectorAll( 'a.pageload-link' ) ),
+					loader = new SVGLoader( document.getElementById( 'loader' ), { speedIn : 200, easingIn : mina.linear } );
+
+				function init() {
+					triggerLoading.forEach( function( trigger ) {
+						trigger.addEventListener( 'click', function( ev ) {
+							ev.preventDefault();
+							loader.show();
+							// after some time hide loader
+							setTimeout( function() {
+								loader.hide();
+
+								classie.removeClass( pages[ currentPage ], 'show' );
+								// update..
+								currentPage = currentPage ? 0 : 1;
+								classie.addClass( pages[ currentPage ], 'show' );
+
+							}, 2000 );
+						} );
+					} );	
+				}
+
+				init();
+			})();
+		</script>
+	</body>
+</html>
