@@ -67,6 +67,7 @@
 				classie.addClass( self.el, 'pageload-loading' );
 			};
 		this._animateSVG( 'in', onEndAnimation );
+		classie.add( this.el, 'show' );
 	}
 
 	SVGLoader.prototype.hide = function() {
@@ -75,6 +76,7 @@
 		this._animateSVG( 'out', function() { 
 			// reset path
 			self.path.attr( 'd', self.initialPath );
+			classie.removeClass( self.el, 'show' );
 			self.isAnimating = false; 
 		} );
 	}
